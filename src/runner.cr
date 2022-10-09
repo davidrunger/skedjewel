@@ -1,6 +1,5 @@
 require "./task"
 require "./lock_manager"
-require "redis_mutex"
 
 class Skedjewel::Runner
   getter :tasks
