@@ -1,0 +1,8 @@
+name: shards
+version: 0.1.0
+
+dependencies:
+  redis:
+    github: stefanwille/crystal-redis
+
+license: MIT
