@@ -6,14 +6,14 @@ on:
       - created
 
 jobs:
-  build_and_upload_binary:
+  build_and_upload_linux_binary:
     runs-on: ubuntu-latest
     container:
       image: crystallang/crystal:latest-alpine
     steps:
       - uses: actions/checkout@v2
       - name: Build
-        run: shards build --production --release --no-debug --static
+        run: shards build --production --release --no-debug
       - name: Upload
         uses: actions/upload-release-asset@v1.0.1
         env:
@@ -22,4 +22,21 @@ jobs:
           upload_url: ${{ github.event.release.upload_url }}
           asset_path: ./bin/skedjewel
           asset_name: skedjewel-${{ github.event.release.tag_name }}-linux
+          asset_content_type: binary/octet-stream
+  build_and_upload_macos_binary:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Crystal
+        uses: crystal-lang/install-crystal@v1
+      - name: Build
+        run: shards build --production --release --no-debug
+      - name: Upload
+        uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./bin/skedjewel
+          asset_name: skedjewel-${{ github.event.release.tag_name }}-darwin
           asset_content_type: binary/octet-stream
