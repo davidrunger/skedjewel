@@ -10,19 +10,17 @@ class Skedjewel::Task
   end
 
   def run
-    @runner.lock_manager.lock(resource_key(Time.local), 60_000)
-    Skedjewel.sidekiq_redis.lpush("queue:default", job_hash.to_json)
+    time = Time.local
+    lock_duration = @runner.seconds_until_next_minute(time).ceil.to_i
+    @runner.lock_manager.with_lock(resource_key(time), lock_duration) do
+      Skedjewel.sidekiq_redis.lpush("queue:default", job_hash.to_json)
+    end
 
     nil
   end
 
   def should_run?
-    current_time = Time.local
-    @schedule.matches?(current_time) && !already_ran?(current_time)
-  end
-
-  private def already_ran?(time)
-    @runner.lock_manager.locked?(resource_key(time))
+    @schedule.matches?(Time.local)
   end
 
   private def resource_key(time)

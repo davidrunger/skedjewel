@@ -35,14 +35,14 @@ class Skedjewel::Runner
     @lock_manager ||= Skedjewel::LockManager.new
   end
 
+  def seconds_until_next_minute(time)
+    seconds_into_minute = time.second.to_f + (time.to_unix_f % 1.0)
+    60.0 - seconds_into_minute
+  end
+
   private def execute_tasks
     @tasks.each do |task|
       task.run if task.should_run?
     end
-  end
-
-  private def seconds_until_next_minute(time)
-    seconds_into_minute = time.second.to_f + (time.to_unix_f % 1.0)
-    60.0 - seconds_into_minute
   end
 end
