@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build
-        run: shards build --production --release --no-debug
+        run: shards build --production --release --no-debug --static
       - name: Upload
         uses: actions/upload-release-asset@v1.0.1
         env:
