@@ -5,4 +5,8 @@ dependencies:
   redis:
     github: stefanwille/crystal-redis
 
+targets:
+  skedjewel:
+    main: exe/skedjewel.cr
+
 license: MIT
