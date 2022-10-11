@@ -27,7 +27,7 @@ class Skedjewel::Runner
 
     loop do
       execute_tasks
-      sleep(seconds_until_next_minute(Time.local) + 0.001)
+      sleep(seconds_until_next_minute(Time.local) + 0.1)
     end
   end
 
