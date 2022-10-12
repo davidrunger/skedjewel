@@ -11,7 +11,7 @@ jobs:
     container:
       image: crystallang/crystal:latest-alpine
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Build
         run: shards build --production --release --no-debug --static
       - name: Upload
@@ -26,7 +26,7 @@ jobs:
   build_and_upload_macos_binary:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Install Crystal
         uses: crystal-lang/install-crystal@v1
       - name: Build
