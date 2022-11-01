@@ -70,11 +70,23 @@ end
 Note that a Skedjewel version is hardcoded at two places in that URL. You'll update Skedjewel by
 updating those version numbers.
 
-## Contributing
+## An easier-to-install alternative: Schedjewel
+
+[Schedjewel][schedjewel] is a Ruby gem with very similar functionality. It's also maintained by me,
+@davidrunger.
+
+Installing Schedjewel as a gem in your project is simpler than installing the Skedjewel binaries, so
+if you're looking for convenience and simplicity, you might consider using Schedjewel instead. The
+primary downside of using Schedjewel rather than Skedjewel is that Schedjewel (the Ruby gem) uses
+more memory.
+
+[schedjewel]: https://github.com/davidrunger/schedjewel
+
+# Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/davidrunger/skedjewel.
 
-## License
+# License
 
 This library is available as open source under the terms of the [MIT
 License](https://opensource.org/licenses/MIT).
