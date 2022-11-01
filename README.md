@@ -2,6 +2,26 @@
 
 A scheduled Sidekiq job runner written in Crystal.
 
+# Usage
+
+Create a file at `config/skedjewel.yml` specifying the desired jobs schedule and other
+configuration.
+
+Example:
+
+```yml
+# config/skedjewel.yml
+
+config:
+  app_redis_db: 0
+  sidekiq_redis_db: 1
+
+jobs:
+  DataMonitors::Launcher: '**:07' # hourly at 7 minutes after
+  SendLogReminderEmails: '**:**' # every minute
+  TruncateTables: '04:58' # daily at 4:58am UTC
+```
+
 # Installation
 
 Start by adding something like this to your `Procfile`:
@@ -49,26 +69,6 @@ end
 
 Note that a Skedjewel version is hardcoded at two places in that URL. You'll update Skedjewel by
 updating those version numbers.
-
-# Usage
-
-## `skedjewel.yml` schedule / config file
-
-Create a file at `config/skedjewel.yml` specifying the desired jobs schedule and other
-configuration.
-
-Example:
-
-```yml
-config:
-  app_redis_db: 0
-  sidekiq_redis_db: 1
-
-jobs:
-  DataMonitors::Launcher: '**:07' # hourly at 7 minutes after
-  SendLogReminderEmails: '**:**' # every minute
-  TruncateTables: '04:58' # daily at 4:58am UTC
-```
 
 ## Contributing
 
