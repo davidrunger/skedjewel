@@ -22,6 +22,12 @@ jobs:
   TruncateTables: '04:58' # daily at 4:58am UTC
 ```
 
+You can print the Skedjewel version:
+
+```
+$ skedjewel --version
+```
+
 # Installation
 
 Start by adding something like this to your `Procfile`:
