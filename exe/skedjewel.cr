@@ -1,3 +1,8 @@
+require "../src/version"
 require "../src/skedjewel"
 
-Skedjewel::Runner.new.run
+if ARGV == ["--version"]
+  puts(Skedjewel::VERSION)
+else
+  Skedjewel::Runner.new.run
+end
