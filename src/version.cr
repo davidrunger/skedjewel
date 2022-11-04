@@ -1,3 +1,3 @@
 class Skedjewel
-  VERSION = "0.0.4.alpha3"
+  VERSION = "0.0.4.alpha4"
 end
