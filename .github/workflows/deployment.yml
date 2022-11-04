@@ -15,10 +15,10 @@ jobs:
       - name: Build
         run: shards build --production --release --no-debug
       - name: Check version matches tag
-        run: "[[ \"v$(./skedjewel --version)\" == ${{ github.event.release.tag_name }} ]] || exit 1"
+        run: "[[ \"v$(./skedjewel --version)\" == ${{  github.ref_name }} ]] || exit 1"
       - name: Rename
-        run: mv skedjewel skedjewel-${{ github.event.release.tag_name }}-darwin
+        run: mv skedjewel skedjewel-${{  github.ref_name }}-darwin
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          files: skedjewel-${{ github.event.release.tag_name }}-darwin
+          files: skedjewel-${{  github.ref_name }}-darwin
