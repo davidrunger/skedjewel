@@ -1,28 +1,11 @@
 name: Deployment
 
 on:
-  release:
-    types:
-      - created
+  push:
+    tags:
+      - "v*.*.*"
 
 jobs:
-  build_and_upload_linux_binary:
-    runs-on: ubuntu-latest
-    container:
-      image: crystallang/crystal:latest-alpine
-    steps:
-      - uses: actions/checkout@v3
-      - name: Build
-        run: shards build --production --release --no-debug --static
-      - name: Upload
-        uses: actions/upload-release-asset@v1.0.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./bin/skedjewel
-          asset_name: skedjewel-${{ github.event.release.tag_name }}-linux
-          asset_content_type: binary/octet-stream
   build_and_upload_macos_binary:
     runs-on: macos-latest
     steps:
@@ -31,12 +14,11 @@ jobs:
         uses: crystal-lang/install-crystal@v1
       - name: Build
         run: shards build --production --release --no-debug
-      - name: Upload
-        uses: actions/upload-release-asset@v1.0.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Check version matches tag
+        run: "[[ "v$(./skedjewel --version)" == ${{ github.event.release.tag_name }} ]] || exit 1"
+      - name: Rename
+        run: mv skedjewel skedjewel-${{ github.event.release.tag_name }}-darwin
+      - name: Release
+        uses: softprops/action-gh-release@v1
         with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./bin/skedjewel
-          asset_name: skedjewel-${{ github.event.release.tag_name }}-darwin
-          asset_content_type: binary/octet-stream
+          files: skedjewel-${{ github.event.release.tag_name }}-darwin
