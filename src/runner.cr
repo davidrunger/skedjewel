@@ -1,5 +1,6 @@
 require "./task"
 require "./lock_manager"
+require "./version"
 
 class Skedjewel::Runner
   getter :tasks
@@ -23,7 +24,7 @@ class Skedjewel::Runner
     end
 
     STDOUT.sync = true
-    ::Log.info { "Skedjewel is running with PID #{Process.pid}." }
+    ::Log.info { "Skedjewel #{Skedjewel::VERSION} is running with PID #{Process.pid}." }
 
     loop do
       execute_tasks
