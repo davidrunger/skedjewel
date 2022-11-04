@@ -15,7 +15,7 @@ jobs:
       - name: Build
         run: shards build --production --release --no-debug
       - name: Check version matches tag
-        run: "[[ "v$(./skedjewel --version)" == ${{ github.event.release.tag_name }} ]] || exit 1"
+        run: "[[ \"v$(./skedjewel --version)\" == ${{ github.event.release.tag_name }} ]] || exit 1"
       - name: Rename
         run: mv skedjewel skedjewel-${{ github.event.release.tag_name }}-darwin
       - name: Release
