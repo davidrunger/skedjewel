@@ -23,10 +23,10 @@ class Skedjewel::Schedule
   end
 
   private def integer_hour
-    @integer_hour ||= @hour.sub(/\A0+/, "").to_i
+    @integer_hour ||= @hour.to_i
   end
 
   private def integer_minute
-    @integer_minute ||= @minute.sub(/\A0+/, "").to_i
+    @integer_minute ||= @minute.to_i
   end
 end
