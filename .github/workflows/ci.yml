@@ -17,3 +17,5 @@ jobs:
         run: shards install
       - name: Build exe/skedjewel.cr
         run: crystal build exe/skedjewel.cr
+      - name: Run tests
+        run: crystal spec spec/schedule_spec.cr
