@@ -8,6 +8,8 @@ require "redis"
 require "yaml"
 
 class Skedjewel
+  @@config : Skedjewel::Config | Nil
+
   formatter =
     ::Log::Formatter.new do |entry, io|
       io << entry.message
@@ -34,12 +36,16 @@ class Skedjewel
     if config = @@config
       config
     else
-      @@config = Skedjewel::Config.new(parsed_config_file["config"])
+      self.config = Skedjewel::Config.new(parsed_config_file["config"].as_h)
     end
   end
 
+  def self.config=(config)
+    @@config = config
+  end
+
   def self.parsed_config_file
-    if parsed_config_file = @@parsed_config_file
+    if (parsed_config_file = @@parsed_config_file)
       parsed_config_file
     else
       @@parsed_config_file = YAML.parse(File.read("config/skedjewel.yml"))

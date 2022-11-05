@@ -15,11 +15,12 @@ Example:
 config:
   app_redis_db: 0
   sidekiq_redis_db: 1
+  time_zone: America/Chicago
 
 jobs:
   DataMonitors::Launcher: '**:07' # hourly at 7 minutes after
   SendLogReminderEmails: '**:**' # every minute
-  TruncateTables: '04:58' # daily at 4:58am UTC
+  TruncateTables: '04:58' # daily at 4:58am Central Time
 ```
 
 You can print the Skedjewel version:
