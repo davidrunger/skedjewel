@@ -20,4 +20,4 @@ jobs:
       - name: Build exe/skedjewel.cr
         run: crystal build exe/skedjewel.cr
       - name: Run tests
-        run: crystal spec --order random
+        run: crystal spec
