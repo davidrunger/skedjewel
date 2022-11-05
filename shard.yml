@@ -5,6 +5,10 @@ dependencies:
   redis:
     github: stefanwille/crystal-redis
 
+development_dependencies:
+  spectator:
+    gitlab: arctic-fox/spectator
+
 targets:
   skedjewel:
     main: exe/skedjewel.cr
