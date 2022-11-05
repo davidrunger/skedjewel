@@ -1,5 +1,4 @@
-require "spec"
-require "../src/schedule"
+require "./spec_helper"
 
 describe Skedjewel::Schedule do
   describe "#matches?" do
