@@ -1,4 +1,4 @@
-name: Deployment
+name: Release
 
 on:
   push:
@@ -6,6 +6,25 @@ on:
       - "v*.*.*"
 
 jobs:
+  build_and_upload_linux_binary:
+    runs-on: ubuntu-latest
+    container:
+      image: crystallang/crystal:latest-alpine
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build
+        run: shards build --production --release --no-debug --static
+      - name: Check version matches tag
+        run: "[[ \"v$(bin/skedjewel --version)\" == ${{  github.ref_name }} ]] || exit 1"
+      - name: Move and rename
+        run: mv bin/skedjewel ./skedjewel-${{  github.ref_name }}-linux
+      - name: Release
+        uses: AButler/upload-release-assets@v2.0
+        with:
+          files: skedjewel-${{  github.ref_name }}-linux
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          release-tag: ${{  github.ref_name }}
+
   build_and_upload_macos_binary:
     runs-on: macos-latest
     steps:
