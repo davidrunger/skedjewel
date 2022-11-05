@@ -1,13 +1,11 @@
 class Skedjewel::Schedule
-  @hour : String
+  @schedule_hour : String
   @minute : String
-  @integer_hour : Int32 | Nil
+  @utc_scheduled_integer_hour : Int32 | Nil
   @integer_minute : Int32 | Nil
 
   def initialize(schedule_string)
-    array = schedule_string.to_s.split(":")
-    @hour = array.first
-    @minute = array.last
+    @schedule_hour, @minute = schedule_string.to_s.split(":")
   end
 
   def matches?(time)
@@ -15,15 +13,19 @@ class Skedjewel::Schedule
   end
 
   private def hour_match?(time)
-    @hour == "**" || time.hour == integer_hour
+    @schedule_hour == "**" || time.to_utc.hour == utc_scheduled_integer_hour
   end
 
   private def minute_match?(time)
     @minute == "**" || time.minute == integer_minute
   end
 
-  private def integer_hour
-    @integer_hour ||= @hour.to_i
+  private def utc_scheduled_integer_hour
+    @utc_scheduled_integer_hour ||= (@schedule_hour.to_i - schedule_timezone_offset_hours) % 24
+  end
+
+  private def schedule_timezone_offset_hours
+    (Time.local(Time::Location.load(Skedjewel.config.time_zone)).zone.offset / (60 * 60)).to_i
   end
 
   private def integer_minute

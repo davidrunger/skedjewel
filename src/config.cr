@@ -1,5 +1,5 @@
 class Skedjewel::Config
-  @config_hash : YAML::Any
+  @config_hash : Hash(YAML::Any, YAML::Any) | Hash(String, String)
 
   def initialize(config_hash)
     @config_hash = config_hash
@@ -15,5 +15,9 @@ class Skedjewel::Config
 
   def sidekiq_redis_db
     @config_hash["sidekiq_redis_db"] || 0
+  end
+
+  def time_zone
+    @config_hash["time_zone"].to_s || "UTC"
   end
 end
