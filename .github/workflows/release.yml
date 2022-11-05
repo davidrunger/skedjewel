@@ -19,7 +19,7 @@ jobs:
       - name: Move and rename
         run: mv bin/skedjewel ./skedjewel-${{  github.ref_name }}-linux
       - name: Release
-        uses: AButler/upload-release-assets@v2
+        uses: AButler/upload-release-assets@v2.0.1
         with:
           files: skedjewel-${{  github.ref_name }}-linux
           repo-token: ${{ secrets.GITHUB_TOKEN }}
@@ -38,7 +38,7 @@ jobs:
       - name: Move and rename
         run: mv bin/skedjewel ./skedjewel-${{  github.ref_name }}-darwin
       - name: Release
-        uses: AButler/upload-release-assets@v2
+        uses: AButler/upload-release-assets@v2.0.1
         with:
           files: skedjewel-${{  github.ref_name }}-darwin
           repo-token: ${{ secrets.GITHUB_TOKEN }}
