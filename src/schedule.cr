@@ -21,10 +21,10 @@ class Skedjewel::Schedule
   end
 
   private def utc_scheduled_integer_hour
-    @utc_scheduled_integer_hour ||= (@schedule_hour.to_i - schedule_timezone_offset_hours) % 24
+    @utc_scheduled_integer_hour ||= (@schedule_hour.to_i - schedule_time_zone_offset_hours) % 24
   end
 
-  private def schedule_timezone_offset_hours
+  private def schedule_time_zone_offset_hours
     (Time.local(Time::Location.load(Skedjewel.config.time_zone)).zone.offset / (60 * 60)).to_i
   end
 
