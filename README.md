@@ -50,6 +50,8 @@ Binaries are released for both MacOS and for Linux. The latest release binaries 
 On your development machine, you can manually download the appropriate binary and put it in the
 `bin/` directory of your Rails project.
 
+You'll also want to add `/bin/skedjewel` to your repository's `.gitignore` file.
+
 ## In production
 
 To use Skedjewel in production, you'll need to download the appropriate binary as part of your
