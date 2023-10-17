@@ -18,9 +18,12 @@ class Skedjewel::Runner
   end
 
   def run
-    Signal::INT.trap do
-      ::Log.info { "Thanks for using Skedjewel! Exiting now." }
-      exit(0)
+    [Signal::INT, Signal::TERM].each do |signal|
+      signal.trap do
+        signal_name = signal.to_s.gsub("Signal::", "")
+        ::Log.info { "Thanks for using Skedjewel! Received #{signal_name} signal. Exiting now." }
+        exit(0)
+      end
     end
 
     STDOUT.sync = true
