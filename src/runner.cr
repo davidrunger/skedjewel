@@ -24,7 +24,7 @@ class Skedjewel::Runner
         ::Log.info do
           "Thanks for using Skedjewel! " \
             "Received #{signal_name} signal. " \
-            "Exiting now. (PID:#{Process.pid} time:#{Time.now.to_f})"
+            "Exiting now. (PID:#{Process.pid} time:#{Time.local.to_f})"
         end
         exit(0)
       end
