@@ -22,9 +22,10 @@ class Skedjewel::Runner
       signal.trap do
         signal_name = signal.to_s.gsub("Signal::", "")
         ::Log.info do
+          sleep(0.001)
           "Thanks for using Skedjewel! " \
-            "Received #{signal_name} signal. " \
-            "Exiting now. (PID:#{Process.pid} time:#{Time.local.to_unix_f})"
+          "Received #{signal_name} signal. " \
+          "Exiting now. (PID:#{Process.pid} time:#{Time.local.to_unix_f})"
         end
         exit(0)
       end
