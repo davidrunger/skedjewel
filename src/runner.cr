@@ -5,6 +5,8 @@ require "./version"
 class Skedjewel::Runner
   getter :tasks
 
+  @@began_exit_process = false
+
   def initialize
     @tasks = [] of Skedjewel::Task
     @tasks =
@@ -20,13 +22,16 @@ class Skedjewel::Runner
   def run
     [Signal::INT, Signal::TERM].each do |signal|
       signal.trap do
-        signal_name = signal.to_s.gsub("Signal::", "")
-        ::Log.info do
-          "Thanks for using Skedjewel! " \
+        if !@@began_exit_process
+          @@began_exit_process = true
+          signal_name = signal.to_s.gsub("Signal::", "")
+          ::Log.info do
+            "Thanks for using Skedjewel! " \
             "Received #{signal_name} signal. " \
             "Exiting now. (PID:#{Process.pid} time:#{Time.local.to_unix_f})"
+          end
+          exit(0)
         end
-        exit(0)
       end
     end
 
