@@ -15,14 +15,14 @@ jobs:
       - name: Build
         run: shards build --production --release --no-debug --static
       - name: Check version matches tag
-        run: "[[ \"v$(bin/skedjewel --version)\" == ${{  github.ref_name }} ]] || exit 1"
+        run: "[[ \"v$(bin/skedjewel --version)\" == ${{ github.ref_name }} ]] || exit 1"
       - name: Move and rename
-        run: mv bin/skedjewel ./skedjewel-${{  github.ref_name }}-linux
+        run: mv bin/skedjewel ./skedjewel-${{ github.ref_name }}-linux
       - name: Upload release binary
         uses: shogo82148/actions-upload-release-asset@v1
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: skedjewel-${{  github.ref_name }}-linux
+          asset_path: skedjewel-${{ github.ref_name }}-linux
 
   build_and_upload_macos_binary:
     runs-on: macos-11
@@ -33,11 +33,11 @@ jobs:
       - name: Build
         run: shards build --production --release --no-debug
       - name: Check version matches tag
-        run: "[[ \"v$(bin/skedjewel --version)\" == ${{  github.ref_name }} ]] || exit 1"
+        run: "[[ \"v$(bin/skedjewel --version)\" == ${{ github.ref_name }} ]] || exit 1"
       - name: Move and rename binary
-        run: mv bin/skedjewel ./skedjewel-${{  github.ref_name }}-darwin
+        run: mv bin/skedjewel ./skedjewel-${{ github.ref_name }}-darwin
       - name: Upload release binary
         uses: shogo82148/actions-upload-release-asset@v1
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: skedjewel-${{  github.ref_name }}-darwin
+          asset_path: skedjewel-${{ github.ref_name }}-darwin
