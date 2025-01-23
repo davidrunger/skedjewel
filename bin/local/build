@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+set -euo pipefail # exit on any error, don't allow undefined variables, pipes don't swallow errors
+
+docker run \
+  --rm -it \
+  -v $(pwd):/workspace \
+  -w /workspace \
+  crystallang/crystal:latest-alpine \
+  shards build \
+    --production \
+    --release \
+    --static \
+    --no-debug
