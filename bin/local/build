@@ -4,6 +4,7 @@ set -euo pipefail # exit on any error, don't allow undefined variables, pipes do
 
 docker run \
   --rm \
+  -it \
   -v $(pwd):/workspace \
   -w /workspace \
   crystallang/crystal:latest-alpine \
