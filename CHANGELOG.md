@@ -1,3 +1,7 @@
+# Unreleased
+- Change deprecated `sleep(Number)` to `sleep(Time::Span)`.
+- Change `sleep` padding from 100 ms to 1 ms.
+
 # v0.0.11 - 2024-02-06
 - Only log and exit once (#45)
 

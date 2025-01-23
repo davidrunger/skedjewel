@@ -3,6 +3,8 @@ require "./lock_manager"
 require "./version"
 
 class Skedjewel::Runner
+  NANOSECONDS_IN_A_SECOND = 1_000_000_000
+
   getter :tasks
 
   @@began_exit_process = false
@@ -40,7 +42,16 @@ class Skedjewel::Runner
 
     loop do
       execute_tasks
-      sleep(seconds_until_next_minute(Time.local) + 0.1)
+
+      sleep(
+        Time::Span.new(
+          nanoseconds:
+            seconds_to_nanoseconds(
+              seconds_until_next_minute(Time.local) +
+                0.001, # Add a millisecond to ensure we go into the next minute.
+            ),
+        )
+      )
     end
   end
 
@@ -57,5 +68,9 @@ class Skedjewel::Runner
     @tasks.each do |task|
       task.run if task.should_run?
     end
+  end
+
+  private def seconds_to_nanoseconds(seconds)
+    (seconds * NANOSECONDS_IN_A_SECOND).to_i64
   end
 end
