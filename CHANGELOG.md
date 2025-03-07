@@ -1,3 +1,6 @@
+# v0.0.15 - 2025-03-07
+- Update to Sidekiq 8 timestamp format (epoch milliseconds, not floats).
+
 # v0.0.14 - 2025-01-22
 - Change deprecated `sleep(Number)` to `sleep(Time::Span)`.
 - Change `sleep` padding from 100 ms to 1 ms.
