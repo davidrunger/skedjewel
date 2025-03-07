@@ -29,7 +29,7 @@ class Skedjewel::Task
 
   private def job_hash
     # https://github.com/mperham/sidekiq/wiki/FAQ#how-do-i-push-a-job-to-sidekiq-without-ruby
-    current_time = Time.local.to_unix_f
+    current_time = (Time.local.to_unix_f * 1_000).round
     {
       "class"       => @job_name,
       "queue"       => "default",
