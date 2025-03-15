@@ -64,6 +64,34 @@ Spectator.describe Skedjewel::Schedule do
           end
         end
       end
+
+      context "when the schedule string is '**:%5'" do
+        let(schedule_string) { "**:%5" }
+
+        context "when the checked time is UTC 00:15:29" do
+          let(time) { Time.utc(2025, 3, 15, 0, 15, 29) }
+
+          it "returns true" do
+            expect(schedule.matches?(time)).to eq(true)
+          end
+        end
+
+        context "when the checked time is UTC 13:25:48" do
+          let(time) { Time.utc(2025, 3, 15, 13, 25, 48) }
+
+          it "returns true" do
+            expect(schedule.matches?(time)).to eq(true)
+          end
+        end
+
+        context "when the checked time is UTC 13:26:48" do
+          let(time) { Time.utc(2025, 3, 15, 13, 26, 48) }
+
+          it "returns false" do
+            expect(schedule.matches?(time)).to eq(false)
+          end
+        end
+      end
     end
 
     context "when the schedule time zone has a positive UTC offset" do
