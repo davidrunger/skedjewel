@@ -1,3 +1,6 @@
+# v0.0.16 - 2025-03-15
+- Support scheduling a job every X minutes.
+
 # v0.0.15 - 2025-03-07
 - Update to Sidekiq 8 timestamp format (epoch milliseconds, not floats).
 
