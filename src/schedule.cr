@@ -3,7 +3,7 @@ class Skedjewel::Schedule
 
   @schedule_hour : String
   @schedule_minute : String
-  @utc_scheduled_integer_hour : Int32 | Nil
+  @scheduled_integer_hour : Int32 | Nil
   @integer_minute : Int32 | Nil
 
   def initialize(schedule_string)
@@ -20,7 +20,7 @@ class Skedjewel::Schedule
     elsif @schedule_hour.matches?(MODULUS_REGEX)
       hour_modulo_match?(time)
     else
-      time.to_utc.hour == utc_scheduled_integer_hour
+      time.hour == scheduled_integer_hour
     end
   end
 
@@ -47,8 +47,8 @@ class Skedjewel::Schedule
     (actual_time_unit % modulus) == 0
   end
 
-  private def utc_scheduled_integer_hour
-    @utc_scheduled_integer_hour ||= (@schedule_hour.to_i - schedule_time_zone_offset_hours) % 24
+  private def scheduled_integer_hour
+    @scheduled_integer_hour ||= @schedule_hour.to_i
   end
 
   private def schedule_time_zone_offset_hours
