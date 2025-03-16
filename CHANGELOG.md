@@ -1,6 +1,9 @@
 ## Unreleased
 - Support scheduling a job every X hours.
 
+### Docs
+- Make README release title headings h2s (not h1s).
+
 ## v0.0.16 - 2025-03-15
 - Support scheduling a job every X minutes.
 
