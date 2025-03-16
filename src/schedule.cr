@@ -31,7 +31,7 @@ class Skedjewel::Schedule
   private def minute_match?(time)
     if @schedule_minute == "**"
       true
-    elsif @schedule_hour == "**" && @schedule_minute.matches?(MODULUS_REGEX)
+    elsif @schedule_minute.matches?(MODULUS_REGEX)
       minute_modulo_match?(time)
     else
       time.minute == integer_minute

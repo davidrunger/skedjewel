@@ -129,6 +129,78 @@ Spectator.describe Skedjewel::Schedule do
           end
         end
       end
+
+      context "when the schedule string is '02:%5'" do
+        let(schedule_string) { "02:%5" }
+
+        context "when the checked time is local time 02:30" do
+          let(time) { Time.local(2025, 3, 16, 2, 30, 0, location: location) }
+
+          it "returns true" do
+            expect(schedule.matches?(time)).to eq(true)
+          end
+        end
+
+        context "when the checked time is local time 22:35" do
+          let(time) { Time.local(2025, 3, 16, 22, 35, 0, location: location) }
+
+          it "returns false" do
+            expect(schedule.matches?(time)).to eq(false)
+          end
+        end
+
+        context "when the checked time is local time 02:31" do
+          let(time) { Time.local(2025, 3, 16, 2, 31, 0, location: location) }
+
+          it "returns false" do
+            expect(schedule.matches?(time)).to eq(false)
+          end
+        end
+
+        context "when the checked time is local time 03:30" do
+          let(time) { Time.local(2025, 3, 16, 3, 30, 0, location: location) }
+
+          it "returns false" do
+            expect(schedule.matches?(time)).to eq(false)
+          end
+        end
+      end
+
+      context "when the schedule string is '%4:%10'" do
+        let(schedule_string) { "%4:%10" }
+
+        context "when the checked time is local time 08:50" do
+          let(time) { Time.local(2025, 3, 16, 8, 50, 1, location: location) }
+
+          it "returns true" do
+            expect(schedule.matches?(time)).to eq(true)
+          end
+        end
+
+        context "when the checked time is local time 00:00" do
+          let(time) { Time.local(2025, 3, 16, 0, 0, 0, location: location) }
+
+          it "returns true" do
+            expect(schedule.matches?(time)).to eq(true)
+          end
+        end
+
+        context "when the checked time is local time 00:05" do
+          let(time) { Time.local(2025, 3, 16, 0, 5, 0, location: location) }
+
+          it "returns false" do
+            expect(schedule.matches?(time)).to eq(false)
+          end
+        end
+
+        context "when the checked time is local time 02:00" do
+          let(time) { Time.local(2025, 3, 16, 2, 0, 0, location: location) }
+
+          it "returns false" do
+            expect(schedule.matches?(time)).to eq(false)
+          end
+        end
+      end
     end
 
     context "when the schedule time zone has a positive UTC offset" do
