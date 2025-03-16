@@ -1,3 +1,3 @@
 class Skedjewel
-  VERSION = "0.0.16"
+  VERSION = {{ run("./get_version.cr").stringify.chomp }}
 end
