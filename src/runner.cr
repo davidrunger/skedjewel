@@ -55,8 +55,8 @@ class Skedjewel::Runner
     end
   end
 
-  def lock_manager
-    @lock_manager ||= Skedjewel::LockManager.new
+  memoize def lock_manager : Skedjewel::LockManager
+    Skedjewel::LockManager.new
   end
 
   def seconds_until_next_minute(time)
