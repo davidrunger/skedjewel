@@ -2,6 +2,8 @@ name: skedjewel
 version: 0.0.16
 
 dependencies:
+  memoization:
+    github: davidrunger/memoization
   redis:
     github: stefanwille/crystal-redis
 

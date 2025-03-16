@@ -1,5 +1,9 @@
 version: 2.0
 shards:
+  memoization:
+    git: https://github.com/davidrunger/memoization.git
+    version: 0.0.1
+
   pool:
     git: https://github.com/ysbaddaden/pool.git
     version: 0.2.4

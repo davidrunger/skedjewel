@@ -3,8 +3,6 @@ class Skedjewel::Schedule
 
   @schedule_hour : String
   @schedule_minute : String
-  @scheduled_integer_hour : Int32 | Nil
-  @integer_minute : Int32 | Nil
 
   def initialize(schedule_string)
     @schedule_hour, @schedule_minute = schedule_string.to_s.split(":")
@@ -34,7 +32,7 @@ class Skedjewel::Schedule
     elsif @schedule_minute.matches?(MODULUS_REGEX)
       minute_modulo_match?(time)
     else
-      time.minute == integer_minute
+      time.minute == scheduled_integer_minute
     end
   end
 
@@ -47,15 +45,15 @@ class Skedjewel::Schedule
     (actual_time_unit % modulus) == 0
   end
 
-  private def scheduled_integer_hour
-    @scheduled_integer_hour ||= @schedule_hour.to_i
+  private memoize def scheduled_integer_hour : Int32
+    @schedule_hour.to_i
   end
 
   private def schedule_time_zone_offset_hours
     (Time.local(Time::Location.load(Skedjewel.config.time_zone)).zone.offset / (60 * 60)).to_i
   end
 
-  private def integer_minute
-    @integer_minute ||= @schedule_minute.to_i
+  private memoize def scheduled_integer_minute : Int32
+    @schedule_minute.to_i
   end
 end

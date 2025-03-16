@@ -1,11 +1,13 @@
+require "log"
+require "log/io_backend"
+require "memoization"
+require "redis"
+require "yaml"
+
 class Skedjewel; end
 
 require "./config"
 require "./runner"
-require "log"
-require "log/io_backend"
-require "redis"
-require "yaml"
 
 class Skedjewel
   @@config : Skedjewel::Config | Nil
