@@ -6,6 +6,7 @@ class Skedjewel::Task
   def initialize(job_name : String, schedule_string, runner : Skedjewel::Runner)
     @job_name = job_name
     @schedule = Skedjewel::Schedule.new(schedule_string)
+    @schedule_time_location = Time::Location.load(Skedjewel.config.time_zone)
     @runner = runner
   end
 
@@ -20,7 +21,7 @@ class Skedjewel::Task
   end
 
   def should_run?
-    @schedule.matches?(Time.local)
+    @schedule.matches?(Time.local(@schedule_time_location))
   end
 
   private def resource_key(time)
