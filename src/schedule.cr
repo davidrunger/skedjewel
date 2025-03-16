@@ -15,7 +15,17 @@ class Skedjewel::Schedule
   end
 
   private def hour_match?(time)
-    @schedule_hour == "**" || time.to_utc.hour == utc_scheduled_integer_hour
+    if @schedule_hour == "**"
+      true
+    elsif @schedule_hour.matches?(MODULUS_REGEX)
+      hour_modulo_match?(time)
+    else
+      time.to_utc.hour == utc_scheduled_integer_hour
+    end
+  end
+
+  private def hour_modulo_match?(time)
+    modulo_match?(@schedule_hour, time.hour)
   end
 
   private def minute_match?(time)
@@ -29,8 +39,12 @@ class Skedjewel::Schedule
   end
 
   private def minute_modulo_match?(time)
-    minute_modulus = @minute.match!(MODULUS_REGEX)["modulus"].to_i
-    (time.minute % minute_modulus) == 0
+    modulo_match?(@minute, time.minute)
+  end
+
+  private def modulo_match?(schedule_for_time_unit, actual_time_unit)
+    modulus = schedule_for_time_unit.match!(MODULUS_REGEX)["modulus"].to_i
+    (actual_time_unit % modulus) == 0
   end
 
   private def utc_scheduled_integer_hour

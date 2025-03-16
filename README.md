@@ -21,6 +21,7 @@ jobs:
   DataMonitors::Launcher: '**:07' # hourly at 7 minutes after
   SendLogReminderEmails: '**:**' # every minute
   CapturePgHeroQueryStats: '**:%5' # every 5 minutes
+  CapturePgHeroQueryStats: '%2:07' # every 2 hours at 7 minutes after the hour
   TruncateTables: '04:58' # daily at 4:58am Central Time
 ```
 
