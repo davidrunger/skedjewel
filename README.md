@@ -21,7 +21,9 @@ jobs:
   DataMonitors::Launcher: '**:07' # hourly at 7 minutes after
   SendLogReminderEmails: '**:**' # every minute
   CapturePgHeroQueryStats: '**:%5' # every 5 minutes
+  CollectRedisMetrics: '**:%10+2' # every 10 minutes, with an offset of 2 (2, 12, 22, ...)
   CapturePgHeroQueryStats: '%2:07' # every 2 hours at 7 minutes after the hour
+  CapturePgHeroQueryStats: '%2+1:56' # every 2 hours (in odd hours) at 56 minutes after the hour
   TruncateTables: '04:58' # daily at 4:58am Central Time
 ```
 
