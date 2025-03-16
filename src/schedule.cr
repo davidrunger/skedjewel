@@ -2,12 +2,12 @@ class Skedjewel::Schedule
   MODULUS_REGEX = /^%(?<modulus>\d{1,2})$/
 
   @schedule_hour : String
-  @minute : String
+  @schedule_minute : String
   @utc_scheduled_integer_hour : Int32 | Nil
   @integer_minute : Int32 | Nil
 
   def initialize(schedule_string)
-    @schedule_hour, @minute = schedule_string.to_s.split(":")
+    @schedule_hour, @schedule_minute = schedule_string.to_s.split(":")
   end
 
   def matches?(time)
@@ -29,9 +29,9 @@ class Skedjewel::Schedule
   end
 
   private def minute_match?(time)
-    if @minute == "**"
+    if @schedule_minute == "**"
       true
-    elsif @schedule_hour == "**" && @minute.matches?(MODULUS_REGEX)
+    elsif @schedule_hour == "**" && @schedule_minute.matches?(MODULUS_REGEX)
       minute_modulo_match?(time)
     else
       time.minute == integer_minute
@@ -39,7 +39,7 @@ class Skedjewel::Schedule
   end
 
   private def minute_modulo_match?(time)
-    modulo_match?(@minute, time.minute)
+    modulo_match?(@schedule_minute, time.minute)
   end
 
   private def modulo_match?(schedule_for_time_unit, actual_time_unit)
@@ -56,6 +56,6 @@ class Skedjewel::Schedule
   end
 
   private def integer_minute
-    @integer_minute ||= @minute.to_i
+    @integer_minute ||= @schedule_minute.to_i
   end
 end
