@@ -1,3 +1,6 @@
+# Unreleased
+- Support scheduling a job every X hours.
+
 # v0.0.16 - 2025-03-15
 - Support scheduling a job every X minutes.
 

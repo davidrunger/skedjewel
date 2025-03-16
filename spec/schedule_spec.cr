@@ -6,6 +6,7 @@ Spectator.describe Skedjewel::Schedule do
   describe "#matches?" do
     context "when the schedule time zone has a negative UTC offset (America/Chicago)" do
       let(time_zone) { "America/Chicago" }
+      let(location) { Time::Location.load(time_zone) }
 
       before_each do
         Skedjewel.config = Skedjewel::Config.new({"time_zone" => time_zone})
@@ -58,6 +59,42 @@ Spectator.describe Skedjewel::Schedule do
 
         context "when the checked time is 00:06:00Z" do
           let(time) { Time.utc(2022, 11, 4, 0, 6, 0) }
+
+          it "returns false" do
+            expect(schedule.matches?(time)).to eq(false)
+          end
+        end
+      end
+
+      context "when the schedule string is '%2:07'" do
+        let(schedule_string) { "%2:07" }
+
+        context "when the checked time is local time 06:07" do
+          let(time) { Time.local(2025, 3, 16, 6, 7, 1, location: location) }
+
+          it "returns true" do
+            expect(schedule.matches?(time)).to eq(true)
+          end
+        end
+
+        context "when the checked time is local time 22:07" do
+          let(time) { Time.local(2025, 3, 16, 22, 7, 2, location: location) }
+
+          it "returns true" do
+            expect(schedule.matches?(time)).to eq(true)
+          end
+        end
+
+        context "when the checked time is local time 03:07" do
+          let(time) { Time.local(2025, 3, 16, 3, 7, 1, location: location) }
+
+          it "returns false" do
+            expect(schedule.matches?(time)).to eq(false)
+          end
+        end
+
+        context "when the checked time is local time 22:08" do
+          let(time) { Time.local(2025, 3, 16, 22, 8, 0, location: location) }
 
           it "returns false" do
             expect(schedule.matches?(time)).to eq(false)
