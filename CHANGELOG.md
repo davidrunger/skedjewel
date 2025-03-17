@@ -1,6 +1,7 @@
 ## Unreleased
 - Support scheduling a job every X hours.
 - Support minute modulus even if hour is not `**`.
+- Support offsets in modulo schedule notation.
 
 ### Docs
 - Make README release title headings h2s (not h1s).

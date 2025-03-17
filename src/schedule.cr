@@ -1,5 +1,5 @@
 class Skedjewel::Schedule
-  MODULUS_REGEX = /^%(?<modulus>\d{1,2})$/
+  MODULUS_REGEX = /^%(?<modulus>\d{1,2})(\+(?<offset>\d{1,2}))?$/
 
   @schedule_hour : String
   @schedule_minute : String
@@ -41,8 +41,22 @@ class Skedjewel::Schedule
   end
 
   private def modulo_match?(schedule_for_time_unit, actual_time_unit)
-    modulus = schedule_for_time_unit.match!(MODULUS_REGEX)["modulus"].to_i
-    (actual_time_unit % modulus) == 0
+    modulus, offset = parsed_modulus_and_offset(schedule_for_time_unit)
+    (actual_time_unit % modulus) == offset
+  end
+
+  private memoize def parsed_modulus_and_offset(schedule_for_time_unit : String) : Tuple(Int32, Int32)
+    modulus_string, offset_string =
+      schedule_for_time_unit.
+        match!(MODULUS_REGEX).
+        named_captures.
+        values_at("modulus", "offset")
+
+    if modulus_string.nil?
+      raise("Modulus could not be parsed!")
+    end
+
+    {modulus_string.to_i, (offset_string || 0).to_i}
   end
 
   private memoize def scheduled_integer_hour : Int32

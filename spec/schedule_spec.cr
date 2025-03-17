@@ -117,6 +117,46 @@ Spectator.describe Skedjewel::Schedule do
         end
       end
 
+      context "when the schedule string is '**:%10+2'" do
+        let(schedule_string) { "**:%10+2" }
+
+        context "when the checked time is local time 08:22" do
+          let(time) { Time.local(2025, 3, 16, 8, 22, 0, location: location) }
+
+          it "returns true" do
+            expect(schedule.matches?(time)).to eq(true)
+          end
+        end
+
+        context "when the checked time is local time 08:27" do
+          let(time) { Time.local(2025, 3, 16, 8, 27, 0, location: location) }
+
+          it "returns false" do
+            expect(schedule.matches?(time)).to eq(false)
+          end
+        end
+      end
+
+      context "when the schedule string is '%2+1:17'" do
+        let(schedule_string) { "%2+1:17" }
+
+        context "when the checked time is local time 15:17" do
+          let(time) { Time.local(2025, 3, 16, 15, 17, 0, location: location) }
+
+          it "returns true" do
+            expect(schedule.matches?(time)).to eq(true)
+          end
+        end
+
+        context "when the checked time is local time 16:17" do
+          let(time) { Time.local(2025, 3, 16, 16, 17, 0, location: location) }
+
+          it "returns false" do
+            expect(schedule.matches?(time)).to eq(false)
+          end
+        end
+      end
+
       context "when the schedule string is '02:%5'" do
         let(schedule_string) { "02:%5" }
 
