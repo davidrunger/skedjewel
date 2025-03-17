@@ -1,4 +1,4 @@
-## Unreleased
+## v0.0.17 - 2025-03-16
 - Support scheduling a job every X hours.
 - Support minute modulus even if hour is not `**`.
 - Support offsets in modulo schedule notation.
