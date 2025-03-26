@@ -1,3 +1,6 @@
+## v1.0.0 - 2025-03-26
+- **BREAKING:** Stop building for macOS.
+
 ## v0.0.18 - 2025-03-26
 - Restrict GitHub Actions token permissions.
 

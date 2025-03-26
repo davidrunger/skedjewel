@@ -44,15 +44,13 @@ clock: bin/skedjewel
 Now, you need to download the appropriate binary and put it in the `bin/` directory of your Rails
 app.
 
-Binaries are released for both MacOS and for Linux. The latest release binaries are available
-[here][latest-release].
+Binaries are released only for Linux. The latest release binaries are available [here][latest-release].
 
 [latest-release]: https://github.com/davidrunger/skedjewel/releases/latest
 
 ## In development
 
-On your development machine, you can manually download the appropriate binary and put it in the
-`bin/` directory of your Rails project.
+On your development machine (if you are using Linux), you can manually download the appropriate binary and put it in the `bin/` directory of your Rails project.
 
 You'll also want to add `/bin/skedjewel` to your repository's `.gitignore` file.
 
