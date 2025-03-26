@@ -5,6 +5,9 @@ on:
     types:
       - created
 
+permissions:
+  contents: write # Permit 'write' (which also includes 'read') to upload assets to release.
+
 jobs:
   build_and_upload_linux_binary:
     runs-on: ubuntu-latest
