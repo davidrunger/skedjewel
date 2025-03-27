@@ -1,3 +1,7 @@
+## Unreleased
+### Internal
+- Specify commits (not loose versions) for GitHub Actions.
+
 ## v1.0.0 - 2025-03-26
 - **BREAKING:** Stop building for macOS.
 
