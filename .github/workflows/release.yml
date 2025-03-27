@@ -11,11 +11,12 @@ permissions:
 jobs:
   build_and_upload_linux_binary:
     runs-on: ubuntu-latest
-    container:
-      image: crystallang/crystal:latest-alpine
     steps:
-      - name: Download source
+      - name: Check out code
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Install Crystal
+        uses: crystal-lang/install-crystal@cdf26dcd488490c9939e9d4d62cab169c9e4f20d # v1.8.2
 
       - name: Build
         run: shards build --production --release --no-debug --static

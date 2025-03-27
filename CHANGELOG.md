@@ -1,6 +1,7 @@
-## Unreleased
+## v1.1.0 - 2025-03-27
 ### Internal
 - Specify commits (not loose versions) for GitHub Actions.
+- Install Crystal for release via `crystal-lang/install-crystal` action, rather than using a Crystal Docker image.
 
 ## v1.0.0 - 2025-03-26
 - **BREAKING:** Stop building for macOS.
