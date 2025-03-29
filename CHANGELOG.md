@@ -1,6 +1,7 @@
 ## Unreleased
 ### Docs
 - [readme] Update outdated language referring to binary(s) from plural to singular.
+- [readme] Add snippet showing how to build skedjewel into Docker image.
 
 ## v1.1.0 - 2025-03-27
 ### Internal

@@ -56,8 +56,18 @@ You'll also want to add `/bin/skedjewel` to your repository's `.gitignore` file.
 To use Skedjewel in production, you'll need to download the appropriate binary as part of your
 deploy process.
 
-Perhaps your deploy process invokes the `assets:precompile` rake task? If so, then you could
-`enhance` that rake task with the following:
+If you use Docker to build an image that can run Skedjewel, then you can add something like this to your `Dockerfile`:
+
+```dockerfile
+# Download skedjewel binary.
+ARG SKEDJEWEL_VERSION=v1.1.0
+RUN curl --fail -L "https://github.com/davidrunger/skedjewel/releases/download/$SKEDJEWEL_VERSION/skedjewel-$SKEDJEWEL_VERSION-linux" > skedjewel && \
+  mkdir -p /app/bin && \
+  mv skedjewel /app/bin/ && \
+  chmod a+x /app/bin/skedjewel
+```
+
+Or, perhaps your deploy process invokes the `assets:precompile` rake task? If so, then you could `enhance` that rake task with the following:
 
 ```rb
 # lib/tasks/assets.rake
