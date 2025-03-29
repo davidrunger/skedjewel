@@ -1,3 +1,7 @@
+## Unreleased
+### Docs
+- [readme] Update outdated language referring to binary(s) from plural to singular.
+
 ## v1.1.0 - 2025-03-27
 ### Internal
 - Specify commits (not loose versions) for GitHub Actions.

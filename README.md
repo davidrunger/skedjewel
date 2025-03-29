@@ -41,10 +41,7 @@ Start by adding something like this to your `Procfile`:
 clock: bin/skedjewel
 ```
 
-Now, you need to download the appropriate binary and put it in the `bin/` directory of your Rails
-app.
-
-Binaries are released only for Linux. The latest release binaries are available [here][latest-release].
+Now, you need to download the appropriate compiled binary and put it in the `bin/` directory of your Rails app. Binaries are released only for Linux. The latest release binary is available [here][latest-release].
 
 [latest-release]: https://github.com/davidrunger/skedjewel/releases/latest
 
