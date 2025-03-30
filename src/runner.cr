@@ -10,15 +10,29 @@ class Skedjewel::Runner
   @@began_exit_process = false
 
   def initialize
+    jobs_by_rails_env = Skedjewel.parsed_config_file["jobs_by_rails_env"].as_h
+    jobs_for_env =
+      (to_hash(jobs_by_rails_env["all"]?)).merge(
+        to_hash(jobs_by_rails_env[ENV.fetch("RAILS_ENV", "development")]?)
+      )
     @tasks = [] of Skedjewel::Task
     @tasks =
-      Skedjewel.parsed_config_file["jobs"].as_h.map do |job_name, schedule_string|
+      jobs_for_env.map do |job_name, schedule_string|
         Skedjewel::Task.new(
-          job_name.as_s,
-          schedule_string.as_s,
+          job_name,
+          schedule_string,
           self,
         )
       end
+  end
+
+  # Helper method to convert YAML::Any? to Hash(String, String).
+  private def to_hash(yaml_any : YAML::Any?) : Hash(String, String)
+    if yaml_any
+      yaml_any.as_h.transform_keys(&.to_s).transform_values(&.to_s).as(Hash(String, String))
+    else
+      {} of String => String
+    end
   end
 
   def run
@@ -45,11 +59,10 @@ class Skedjewel::Runner
 
       sleep(
         Time::Span.new(
-          nanoseconds:
-            seconds_to_nanoseconds(
-              seconds_until_next_minute(Time.local) +
-                0.001, # Add a millisecond to ensure we go into the next minute.
-            ),
+          nanoseconds: seconds_to_nanoseconds(
+            seconds_until_next_minute(Time.local) +
+            0.001, # Add a millisecond to ensure we go into the next minute.
+          ),
         )
       )
     end
