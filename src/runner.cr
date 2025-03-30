@@ -12,8 +12,8 @@ class Skedjewel::Runner
   def initialize
     jobs_by_rails_env = Skedjewel.parsed_config_file["jobs_by_rails_env"].as_h
     jobs_for_env =
-      (to_hash(jobs_by_rails_env["all"]?) || {} of String => String).merge(
-        to_hash(jobs_by_rails_env[ENV.fetch("RAILS_ENV", "development")]?) || {} of String => String
+      (to_hash(jobs_by_rails_env["all"]?)).merge(
+        to_hash(jobs_by_rails_env[ENV.fetch("RAILS_ENV", "development")]?)
       )
     @tasks = [] of Skedjewel::Task
     @tasks =
@@ -26,10 +26,10 @@ class Skedjewel::Runner
       end
   end
 
-  # Helper method to convert YAML::Any? to Array(Hash(String, String)).
+  # Helper method to convert YAML::Any? to Hash(String, String).
   private def to_hash(yaml_any : YAML::Any?) : Hash(String, String)
     if yaml_any
-      yaml_any.as_h.transform_keys(&.to_s).transform_values(&.to_s).as(Hash(String, String)) # Convert to hash with string keys/values
+      yaml_any.as_h.transform_keys(&.to_s).transform_values(&.to_s).as(Hash(String, String))
     else
       {} of String => String
     end
