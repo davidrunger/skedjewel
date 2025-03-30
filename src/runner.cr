@@ -17,7 +17,7 @@ class Skedjewel::Runner
       )
     @tasks = [] of Skedjewel::Task
     @tasks =
-      jobs_for_env.map do |(job_name, schedule_string)|
+      jobs_for_env.map do |job_name, schedule_string|
         Skedjewel::Task.new(
           job_name,
           schedule_string,
