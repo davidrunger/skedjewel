@@ -1,3 +1,6 @@
+## Unreleased
+- Print Crystal version that was used for compilation in the `--version` output.
+
 ## v2.0.0 - 2025-03-30
 - **BREAKING:** In the YAML config, the `jobs` key has been renamed to `jobs_by_rails_env`, and jobs must now be provided nested under a key corresponding to the Rails environment in which the job(s) should run. Use a key of `all` for jobs that should run in all Rails environments. See the README for an example.
 
