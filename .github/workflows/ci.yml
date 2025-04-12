@@ -21,6 +21,12 @@ jobs:
       - name: Install Crystal
         uses: crystal-lang/install-crystal@cdf26dcd488490c9939e9d4d62cab169c9e4f20d # v1.8.2
 
+      - name: Verify Crystal version
+        run: |
+          version=$(cat .crystal-version)
+          escaped_version=$(sed 's/\./\\./g' <<< "$version")
+          [[ "$(crystal --version)" =~ ^Crystal\ ${escaped_version}\  ]]
+
       - name: Install shards
         run: shards install
 
