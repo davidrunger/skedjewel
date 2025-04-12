@@ -1,3 +1,6 @@
+## v2.1.1 - 2025-04-12
+- Fix version check in release GitHub Action.
+
 ## v2.1.0 - 2025-04-12
 - Print Crystal version that was used for compilation in the `--version` output.
 - Use Crystal version specified in `.crystal-version` file when building locally and check the Crystal version in the CI and release GitHub Actions against the version specified in that file.
