@@ -1,3 +1,6 @@
+## Unreleased
+- Bump Crystal from 1.16.0 to 1.16.1 .
+
 ## v2.1.1 - 2025-04-12
 - Fix version check in release GitHub Action.
 
