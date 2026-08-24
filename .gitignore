@@ -1,4 +1,8 @@
 config/skedjewel.yml
+
+# Ameba (Crystal linter)
+/bin/ameba
+
 lib/
 skedjewel
 skedjewel.dwarf

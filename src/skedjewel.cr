@@ -10,7 +10,7 @@ require "./config"
 require "./runner"
 
 class Skedjewel
-  @@config : Skedjewel::Config | Nil
+  @@config : Skedjewel::Config?
 
   formatter =
     ::Log::Formatter.new do |entry, io|
@@ -47,7 +47,7 @@ class Skedjewel
   end
 
   def self.parsed_config_file
-    if (parsed_config_file = @@parsed_config_file)
+    if parsed_config_file = @@parsed_config_file
       parsed_config_file
     else
       @@parsed_config_file = YAML.parse(File.read("config/skedjewel.yml"))

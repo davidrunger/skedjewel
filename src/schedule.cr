@@ -47,10 +47,10 @@ class Skedjewel::Schedule
 
   private memoize def parsed_modulus_and_offset(schedule_for_time_unit : String) : Tuple(Int32, Int32)
     modulus_string, offset_string =
-      schedule_for_time_unit.
-        match!(MODULUS_REGEX).
-        named_captures.
-        values_at("modulus", "offset")
+      schedule_for_time_unit
+        .match!(MODULUS_REGEX)
+        .named_captures
+        .values_at("modulus", "offset")
 
     if modulus_string.nil?
       raise("Modulus could not be parsed!")
