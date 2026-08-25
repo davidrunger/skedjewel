@@ -47,7 +47,7 @@ class Skedjewel
   end
 
   def self.parsed_config_file
-    if parsed_config_file = @@parsed_config_file
+    if (parsed_config_file = @@parsed_config_file)
       parsed_config_file
     else
       @@parsed_config_file = YAML.parse(File.read("config/skedjewel.yml"))
