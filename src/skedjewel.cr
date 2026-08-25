@@ -10,7 +10,7 @@ require "./config"
 require "./runner"
 
 class Skedjewel
-  @@config : Skedjewel::Config | Nil
+  @@config : Skedjewel::Config?
 
   formatter =
     ::Log::Formatter.new do |entry, io|
