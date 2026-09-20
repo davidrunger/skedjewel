@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+die() {
+  echo "bin/release: $*" >&2
+  exit 1
+}
+
+command -v yq >/dev/null || die "yq is required"
+
+repo_root=$(git rev-parse --show-toplevel)
+cd "$repo_root"
+
+[[ "$(git branch --show-current)" == main ]] || die "must be run from the main branch"
+[[ -z "$(git status --porcelain)" ]] || die "the working tree must be clean"
+
+git fetch --quiet --tags origin main
+
+[[ "$(git rev-parse HEAD)" == "$(git rev-parse origin/main)" ]] || die "main is not up to date with origin/main"
+
+version=$(yq -r '.version // ""' shard.yml)
+[[ -n "$version" ]] || die "shard.yml does not contain a version"
+[[ "$version" != *[[:space:]]* ]] || die "shard.yml version contains whitespace: '$version'"
+
+tag="v$version"
+git show-ref --tags --verify --quiet "refs/tags/$tag" && die "tag already exists locally: $tag"
+
+remote_tag=$(git ls-remote --refs origin "refs/tags/$tag") || die "could not query tags on origin"
+[[ -z "$remote_tag" ]] || die "tag already exists on origin: $tag"
+
+read -r -p 'Check that CHANGELOG.md has been updated appropriately for this release. Press Enter to continue. '
+
+echo "Creating and pushing $tag. This will trigger a release GitHub Actions workflow."
+git tag "$tag"
+git push origin "$tag"

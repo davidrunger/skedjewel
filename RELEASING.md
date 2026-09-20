@@ -25,13 +25,13 @@ The release tag must point to the commit containing the matching `shard.yml` ver
 
 ## Publishing a release
 
-From a clean, up-to-date checkout of `main`, create and push the version tag:
+From a clean, up-to-date checkout of `main`, run the release script:
 
 ```sh
-TAG="v$(yq -r '.version' shard.yml)"
-git tag "$TAG"
-git push origin "$TAG"
+bin/release
 ```
+
+The script requires `yq`, reads the version from `shard.yml`, checks that the corresponding `v*` tag does not already exist, verifies that `main` matches `origin/main`, and creates and pushes the tag. It refuses to proceed if the working tree is dirty or the tag already exists locally or on `origin`. After the automated checks pass, it prompts you to confirm that `CHANGELOG.md` has been updated appropriately before creating and pushing the tag.
 
 Pushing a `v*` tag starts the Release workflow. It checks out that exact tag, builds the Linux binary, generates its build provenance attestation, and runs `gh release create` with the binary. When immutable releases are enabled, `gh release create` creates the release as a draft, uploads the binary, and publishes the release only after the asset is attached.
 
