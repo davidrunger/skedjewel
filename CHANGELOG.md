@@ -1,4 +1,4 @@
-## Unreleased
+## v2.2.0 - 2026-09-20
 - Bump Crystal from 1.16.0 to 1.21.0 .
 - Add build provenance attestations and release asset verification guidance.
 
