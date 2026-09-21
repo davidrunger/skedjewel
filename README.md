@@ -90,6 +90,32 @@ end
 Note that a Skedjewel version is hardcoded at two places in that URL. You'll update Skedjewel by
 updating those version numbers.
 
+# Verifying release assets
+
+Release binaries are built by GitHub Actions from version tags and include signed build provenance attestations. Release-level verification applies to releases published after GitHub release immutability is enabled. See [RELEASING.md][releasing] for the maintainer setup and release process.
+
+[releasing]: RELEASING.md
+
+After downloading a release binary, set `TAG` to its release tag and `ASSET` to the downloaded file's path, then run:
+
+```sh
+TAG=v2.2.0
+ASSET=./skedjewel-v2.2.0-linux
+
+gh release verify "$TAG" --repo davidrunger/skedjewel
+gh release verify-asset "$TAG" "$ASSET" --repo davidrunger/skedjewel
+gh attestation verify "$ASSET" \
+  --repo davidrunger/skedjewel \
+  --signer-workflow davidrunger/skedjewel/.github/workflows/release.yml \
+  --source-ref "refs/tags/$TAG"
+```
+
+`gh release verify` verifies GitHub's signed attestation for the release, including its tag, commit, and asset digests. `gh release verify-asset` additionally verifies that the local file has the same digest as the asset published in that release. These commands establish release integrity, but do not establish how the binary was built.
+
+`gh attestation verify` verifies the binary's signed SLSA build provenance. With the repository, workflow, and tag restrictions above, it verifies that the binary was attested by this repository's release workflow for the specified tag. This provides evidence that the binary was built by that GitHub Actions workflow from the source associated with that tag. It does not prove that the source code is safe or that an independent rebuild would produce identical bytes.
+
+These commands require GitHub CLI `v2.81.0` or newer. Use a current GitHub CLI release; versions before `v2.93.0` contain a security issue affecting these verification commands.
+
 ## An easier-to-install alternative: Schedjewel
 
 [Schedjewel][schedjewel] is a Ruby gem with very similar functionality. It's also maintained by me,

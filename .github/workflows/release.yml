@@ -1,19 +1,23 @@
 name: Release
 
 on:
-  release:
-    types:
-      - created
+  push:
+    tags:
+      - 'v*'
 
 permissions:
-  contents: write # Permit 'write' (which also includes 'read') to upload assets to release.
+  attestations: write # Permit publishing the build provenance attestation.
+  contents: write # Permit creating the release and uploading its assets.
+  id-token: write # Permit signing the build provenance attestation.
 
 jobs:
-  build_and_upload_linux_binary:
+  build_and_release_linux_binary:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.ref }}
 
       - name: Install Crystal
         uses: crystal-lang/install-crystal@d8ef131ecec0352ce0e39b81b0a6d95def58fe2f # v1.9.2
@@ -33,8 +37,18 @@ jobs:
       - name: Move and rename
         run: mv bin/skedjewel ./skedjewel-${{ github.ref_name }}-linux
 
-      - name: Upload release binary
-        uses: shogo82148/actions-upload-release-asset@aaba0f56bdbc1071f4af234d5cb16055e8a400de # v1.10.4
+      - name: Generate build provenance attestation
+        uses: actions/attest@1e69f48acb82d1966a394da916b4c1698aa569d6 # v4.2.2
         with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: skedjewel-${{ github.ref_name }}-linux
+          subject-path: skedjewel-${{ github.ref_name }}-linux
+
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          gh release create "$TAG" "skedjewel-$TAG-linux" \
+            --repo "$REPO" \
+            --generate-notes \
+            --verify-tag

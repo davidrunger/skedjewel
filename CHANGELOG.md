@@ -1,6 +1,6 @@
 ## Unreleased
-- Bump Crystal from 1.16.0 to 1.16.1 .
-- Bump Crystal from 1.17.1 to 1.18.2 .
+- Bump Crystal from 1.16.0 to 1.21.0 .
+- Add build provenance attestations and release asset verification guidance.
 
 ## v2.1.1 - 2025-04-12
 - Fix version check in release GitHub Action.
