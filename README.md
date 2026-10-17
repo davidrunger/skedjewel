@@ -54,8 +54,7 @@ You'll also want to add `/bin/skedjewel` to your repository's `.gitignore` file.
 
 ## In production
 
-To use Skedjewel in production, you'll need to download the appropriate binary as part of your
-deploy process.
+To use Skedjewel in production, you'll need to download the appropriate binary as part of your deploy process.
 
 If you use Docker to build an image that can run Skedjewel, then you can add something like this to your `Dockerfile`:
 
