@@ -4,8 +4,7 @@ A scheduled Sidekiq job runner written in Crystal.
 
 # Usage
 
-Create a file at `config/skedjewel.yml` specifying the desired jobs schedule and other
-configuration.
+Create a file at `config/skedjewel.yml` specifying the desired jobs schedule and other configuration.
 
 Example:
 
